@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+:root {
+  --color-sage: #9CAF88;
+  --color-sage-light: #B8C9A8;
+  --color-sage-dark: #7A8F6A;
+  --color-cream: #F5F5DC;
+  --color-warm-white: #FEFEFE;
+  --color-soft-gray: #6B7280;
+  --color-deep-gray: #374151;
+  --color-nature-green: #4A6741;
+  --color-soft-peach: #F4D1AE;
+  --color-warm-beige: #E8DCC4;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--color-warm-white);
+  color: var(--color-deep-gray);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.smooth-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-warm-beige) 100%);
+}
+
+.nature-pattern {
+  background-image: 
+    radial-gradient(circle at 25% 25%, var(--color-sage-light) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, var(--color-soft-peach) 0%, transparent 50%);
+  background-size: 100px 100px;
+  opacity: 0.1;
+}

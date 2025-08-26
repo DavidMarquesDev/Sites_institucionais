@@ -1,0 +1,50 @@
+{
+  "name": "massagem-site",
+  "version": "1.0.0",
+  "description": "Site profissional para serviços de massagem e liberação miofascial",
+  "keywords": [
+    "massagem",
+    "liberação miofascial",
+    "massoterapia",
+    "nextjs",
+    "react",
+    "typescript",
+    "tailwindcss"
+  ],
+  "author": "Especialista em Massagem",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf .next out",
+    "analyze": "ANALYZE=true npm run build"
+  },
+  "dependencies": {
+    "react": "^18",
+    "react-dom": "^18",
+    "next": "15.5.1",
+    "lucide-react": "^0.460.0",
+    "framer-motion": "^11.15.0"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@tailwindcss/postcss": "^0.0.0",
+    "tailwindcss": "^3.4.1",
+    "eslint": "^8",
+    "eslint-config-next": "15.5.1",
+    "@eslint/eslintrc": "^3.2.0",
+    "autoprefixer": "^10.4.20"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}
