@@ -9,21 +9,25 @@ O Vercel é a plataforma oficial do Next.js e oferece o deploy mais simples e ot
 ### Passos para Deploy no Vercel:
 
 1. **Crie uma conta no Vercel**
+
    - Acesse [vercel.com](https://vercel.com)
    - Faça login com GitHub, GitLab ou Bitbucket
 
 2. **Conecte seu repositório**
+
    - Clique em "New Project"
    - Importe o repositório do GitHub
    - O Vercel detectará automaticamente que é um projeto Next.js
 
 3. **Configure o projeto**
+
    - **Framework Preset**: Next.js (deve ser detectado automaticamente)
    - **Build Command**: `npm run build` (padrão)
    - **Output Directory**: `.next` (padrão)
    - **Install Command**: `npm install` (padrão)
 
 4. **Variáveis de Ambiente (opcional)**
+
    - Se você tiver variáveis de ambiente, configure-as na seção "Environment Variables"
 
 5. **Deploy**
@@ -32,6 +36,7 @@ O Vercel é a plataforma oficial do Next.js e oferece o deploy mais simples e ot
    - Seu site estará disponível em `https://seu-projeto.vercel.app`
 
 ### Deploy Automático:
+
 - A cada push para a branch principal, o Vercel fará deploy automaticamente
 - Você pode configurar branches de preview para testar mudanças antes do deploy principal
 
@@ -42,15 +47,18 @@ O Netlify também é uma excelente opção para sites Next.js.
 ### Passos para Deploy no Netlify:
 
 1. **Crie uma conta no Netlify**
+
    - Acesse [netlify.com](https://netlify.com)
    - Faça login com GitHub, GitLab ou Bitbucket
 
 2. **Conecte seu repositório**
+
    - Clique em "New site from Git"
    - Escolha seu provedor de Git
    - Selecione o repositório
 
 3. **Configure o build**
+
    - **Build command**: `npm run build`
    - **Publish directory**: `.next`
    - **Node version**: 18 (ou superior)
@@ -77,6 +85,7 @@ Railway é uma plataforma moderna e simples para deploy.
 ### Antes do Deploy:
 
 1. **Verifique o build localmente**:
+
    ```bash
    npm run build
    npm start
@@ -95,11 +104,13 @@ Railway é uma plataforma moderna e simples para deploy.
 ### Otimizações Recomendadas:
 
 1. **Imagens**:
+
    - Use formatos modernos (WebP, AVIF)
    - Otimize o tamanho das imagens
    - Considere usar um CDN para imagens
 
 2. **Performance**:
+
    - O Next.js já inclui várias otimizações
    - Considere usar `next/image` para imagens
    - Implemente lazy loading para componentes pesados
@@ -114,6 +125,7 @@ Railway é uma plataforma moderna e simples para deploy.
 ### Configurando um Domínio:
 
 1. **No Vercel**:
+
    - Vá para "Settings" > "Domains"
    - Adicione seu domínio
    - Configure os registros DNS conforme instruído
@@ -151,11 +163,13 @@ Valor: seu-site.vercel.app (ou netlify.app)
 ### Erros Comuns:
 
 1. **Build falha**:
+
    - Verifique os logs de erro
    - Execute `npm run build` localmente
    - Verifique as dependências
 
 2. **Site não carrega**:
+
    - Verifique a configuração do domínio
    - Confirme se o deploy foi bem-sucedido
    - Verifique os logs da plataforma
