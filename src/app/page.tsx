@@ -22,28 +22,36 @@ export default function Home() {
 
   const services = [
     {
+      title: "Massagem Relaxante",
+      description: "Indicada para quem deseja uma pausa do dia a dia agitado, a massagem relaxante trabalha o corpo de forma suave e completa. Alivia a tensão, melhora a circulação sanguínea e promove uma sensação de paz. Ideal para quem busca um momento de calma e renovação.",
+      icon: Heart,
+      duration: "60 min",
+      price: "R$ 100",
+      features: ["Alívio da tensão", "Melhora da circulação", "Sensação de paz"]
+    },
+    {
       title: "Liberação Miofascial",
-      description: "Técnica especializada para liberar tensões musculares e melhorar a mobilidade",
+      description: "Indicada para quem sente o corpo travado, com dores ou rigidez muscular, a liberação miofascial atua nas tensões mais profundas. Trabalha o tecido que envolve os músculos, melhora os movimentos e alivia pontos de dor. Ideal para quem busca leveza, alívio e mais liberdade no corpo.",
       icon: Leaf,
       duration: "60 min",
       price: "R$ 120",
-      features: ["Alívio da dor", "Melhora da mobilidade", "Redução de tensões"]
+      features: ["Alívio de dores", "Melhora dos movimentos", "Liberdade no corpo"]
     },
     {
-      title: "Massoterapia",
-      description: "Massagem terapêutica para alívio de dores e promoção do relaxamento",
-      icon: Heart,
-      duration: "45 min",
-      price: "R$ 90",
-      features: ["Relaxamento profundo", "Alívio de dores", "Redução do estresse"]
-    },
-    {
-      title: "Massagem Relaxante",
-      description: "Massagem suave para redução do estresse e promoção do bem-estar",
+      title: "Massagem Desportiva",
+      description: "Indicada para quem pratica atividades físicas ou sente a musculatura sobrecarregada, a massagem desportiva prepara o corpo antes do esforço e acelera a recuperação depois. Atua de forma intensa, prevenindo lesões e diminuindo o cansaço muscular. Ideal para quem cuida do corpo com movimento e performance.",
       icon: Zap,
       duration: "60 min",
-      price: "R$ 100",
-      features: ["Redução do estresse", "Melhora do sono", "Bem-estar geral"]
+      price: "R$ 130",
+      features: ["Prevenção de lesões", "Recuperação muscular", "Performance física"]
+    },
+    {
+      title: "Massagem com Pedras Quentes",
+      description: "Indicada para quem busca um relaxamento profundo, a massagem com pedras quentes combina o toque suave com o calor das pedras aquecidas. Alivia as tensões, melhora a circulação e promove bem-estar físico e emocional. Ideal para quem deseja conforto, equilíbrio e acolhimento.",
+      icon: Heart,
+      duration: "75 min",
+      price: "R$ 150",
+      features: ["Relaxamento profundo", "Melhora da circulação", "Bem-estar emocional"]
     }
   ];
 
@@ -916,9 +924,10 @@ export default function Home() {
                 }}>
                   <div 
                     onClick={() => openModal(
+                      service.title === "Massagem Relaxante" ? "/imagens_videos/IMG-20250826-WA0016.jpg" :
                       service.title === "Liberação Miofascial" ? "/imagens_videos/IMG-20250826-WA0019.jpg" :
-                      service.title === "Massoterapia" ? "/imagens_videos/IMG-20250826-WA0017.jpg" :
-                      "/imagens_videos/IMG-20250826-WA0016.jpg"
+                      service.title === "Massagem Desportiva" ? "/imagens_videos/IMG-20250826-WA0017.jpg" :
+                      "/imagens_videos/IMG-20250826-WA0018.jpg"
                     )}
                     onMouseEnter={(e) => {
                       const target = e.target as HTMLElement;
@@ -951,9 +960,10 @@ export default function Home() {
                     }}
                   >
                     <img 
-                      src={service.title === "Liberação Miofascial" ? "/imagens_videos/IMG-20250826-WA0019.jpg" :
-                           service.title === "Massoterapia" ? "/imagens_videos/IMG-20250826-WA0017.jpg" :
-                           "/imagens_videos/IMG-20250826-WA0016.jpg"}
+                      src={service.title === "Massagem Relaxante" ? "/imagens_videos/IMG-20250826-WA0016.jpg" :
+                           service.title === "Liberação Miofascial" ? "/imagens_videos/IMG-20250826-WA0019.jpg" :
+                           service.title === "Massagem Desportiva" ? "/imagens_videos/IMG-20250826-WA0017.jpg" :
+                           "/imagens_videos/IMG-20250826-WA0018.jpg"}
                       alt={`Imagem de ${service.title}`}
                       style={{
                         width: '100%',
