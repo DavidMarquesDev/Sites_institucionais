@@ -141,7 +141,7 @@ export default function Home() {
               {['Início', 'Serviços', 'Sobre', 'Contato'].map((item) => (
                 <a
                   key={item}
-                  href={`#${item.toLowerCase()}`}
+                  href={item === 'Serviços' ? '#servicos' : `#${item.toLowerCase()}`}
                   style={{
                     color: '#A0D4D8',
                     textDecoration: 'none',
@@ -1444,10 +1444,10 @@ export default function Home() {
                   }}>
                     <Phone size={28} style={{ color: '#3b82f6' }} />
                   </div>
-                  <div>
-                    <p style={{ fontWeight: '600', color: '#1f2937', fontSize: '1.125rem' }}>Telefone</p>
-                    <p style={{ color: '#6b7280', fontSize: '1.125rem' }}>(31) 99268-5055</p>
-                  </div>
+                                      <div>
+                      <p style={{ fontWeight: '600', color: '#1f2937', fontSize: '1.125rem' }}>Telefone</p>
+                      <p style={{ color: '#6b7280', fontSize: '1.125rem' }}>(31) 98510-6741</p>
+                    </div>
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
@@ -1575,7 +1575,7 @@ export default function Home() {
                       fontSize: '1.125rem',
                       transition: 'all 0.2s'
                     }}
-                    placeholder="(31) 99268-5055"
+                                          placeholder="(31) 98510-6741"
                     onFocus={(e) => {
                       e.target.style.borderColor = '#3b82f6';
                       e.target.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
@@ -1748,7 +1748,7 @@ export default function Home() {
                 color: '#d1d5db',
                 fontSize: '1.125rem'
               }}>
-                <p>(31) 99268-5055</p>
+                <p>(31) 98510-6741</p>
                 <p>contato@massagempro.com</p>
                 <p>Rua das Flores, 123 - Centro</p>
               </div>
@@ -1843,10 +1843,10 @@ export default function Home() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <Phone size={24} style={{ color: '#3b82f6' }} />
-                <div>
-                  <p style={{ fontWeight: '600', color: '#1f2937' }}>Telefone</p>
-                  <p style={{ color: '#6b7280' }}>(31) 99268-5055</p>
-                </div>
+                                  <div>
+                    <p style={{ fontWeight: '600', color: '#1f2937' }}>Telefone</p>
+                    <p style={{ color: '#6b7280' }}>(31) 98510-6741</p>
+                  </div>
               </div>
               
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -1876,7 +1876,7 @@ export default function Home() {
 
             <div style={{ marginTop: '2rem', textAlign: 'center' }}>
               <button
-                onClick={() => window.open('https://wa.me/5531992685055', '_blank')}
+                onClick={() => window.open('https://wa.me/5531985106741?text=Olá! Estou interessado em agendar um dos seus serviços.', '_blank')}
                 style={{
                   backgroundColor: '#25d366',
                   color: 'white',
