@@ -55,3 +55,36 @@ h1, h2, h3, h4, h5, h6 {
   background-size: 100px 100px;
   opacity: 0.1;
 }
+
+/* Garantir que textos não tenham fundos indesejados */
+.service-card h3,
+.service-card p,
+.service-card span {
+  background-color: transparent !important;
+}
+
+/* Cores consistentes para textos */
+.service-title {
+  color: #1E293B !important;
+  background-color: transparent !important;
+}
+
+.service-description {
+  color: #64748B !important;
+  background-color: transparent !important;
+}
+
+.service-feature {
+  color: #64748B !important;
+  background-color: transparent !important;
+}
+
+.service-duration {
+  color: #64748B !important;
+  background-color: transparent !important;
+}
+
+.service-price {
+  color: #A0D4D8 !important;
+  background-color: transparent !important;
+}

@@ -22,36 +22,52 @@ export default function Home() {
 
   const services = [
     {
-      title: "Massagem Relaxante",
-      description: "Indicada para quem deseja uma pausa do dia a dia agitado, a massagem relaxante trabalha o corpo de forma suave e completa. Alivia a tensão, melhora a circulação sanguínea e promove uma sensação de paz. Ideal para quem busca um momento de calma e renovação.",
-      icon: Heart,
-      duration: "60 min",
-      price: "R$ 100",
-      features: ["Alívio da tensão", "Melhora da circulação", "Sensação de paz"]
-    },
-    {
-      title: "Liberação Miofascial",
+      title: "⚙ Liberação Miofascial + Ventosaterapia",
       description: "Indicada para quem sente o corpo travado, com dores ou rigidez muscular, a liberação miofascial atua nas tensões mais profundas. Trabalha o tecido que envolve os músculos, melhora os movimentos e alivia pontos de dor. Ideal para quem busca leveza, alívio e mais liberdade no corpo.",
       icon: Leaf,
       duration: "60 min",
-      price: "R$ 120",
-      features: ["Alívio de dores", "Melhora dos movimentos", "Liberdade no corpo"]
+      price: "R$ 150,00",
+      features: ["Alívio de dores profundas", "Melhora dos movimentos", "Liberdade no corpo"]
     },
     {
-      title: "Massagem Desportiva",
+      title: "💆‍♀ Massagem Relaxante",
+      description: "Indicada para quem deseja uma pausa do dia a dia agitado, a massagem relaxante trabalha o corpo de forma suave e completa. Alivia a tensão, melhora a circulação sanguínea e promove uma sensação de paz. Ideal para quem busca um momento de calma e renovação.",
+      icon: Heart,
+      duration: "60 min",
+      price: "R$ 120,00",
+      features: ["Alívio da tensão", "Melhora da circulação", "Sensação de paz"]
+    },
+    {
+      title: "🎋 Bambuterapia",
+      description: "Técnica terapêutica que utiliza bambus de diferentes tamanhos para realizar a massagem. Proporciona relaxamento muscular, melhora a circulação e alivia dores localizadas. Uma experiência única e eficaz para o seu bem-estar.",
+      icon: Zap,
+      duration: "60 min",
+      price: "R$ 140,00",
+      features: ["Relaxamento muscular", "Melhora da circulação", "Alívio de dores"]
+    },
+    {
+      title: "⚽ Massagem Desportiva",
       description: "Indicada para quem pratica atividades físicas ou sente a musculatura sobrecarregada, a massagem desportiva prepara o corpo antes do esforço e acelera a recuperação depois. Atua de forma intensa, prevenindo lesões e diminuindo o cansaço muscular. Ideal para quem cuida do corpo com movimento e performance.",
       icon: Zap,
       duration: "60 min",
-      price: "R$ 130",
+      price: "R$ 120,00",
       features: ["Prevenção de lesões", "Recuperação muscular", "Performance física"]
     },
     {
-      title: "Massagem com Pedras Quentes",
+      title: "🔥 Massagem Relaxante com Pedras",
       description: "Indicada para quem busca um relaxamento profundo, a massagem com pedras quentes combina o toque suave com o calor das pedras aquecidas. Alivia as tensões, melhora a circulação e promove bem-estar físico e emocional. Ideal para quem deseja conforto, equilíbrio e acolhimento.",
       icon: Heart,
       duration: "75 min",
-      price: "R$ 150",
+      price: "R$ 150,00",
       features: ["Relaxamento profundo", "Melhora da circulação", "Bem-estar emocional"]
+    },
+    {
+      title: "🕉️ Massagem + Agulhamento a Seco",
+      description: "Combinação de qualquer massagem escolhida com agulhamento a seco para tratamento mais intensivo. O agulhamento a seco atua diretamente nos pontos de tensão e dor, proporcionando alívio imediato e resultados duradouros. Ideal para quem busca tratamento especializado e resultados rápidos.",
+      icon: Leaf,
+      duration: "90 min",
+      price: "R$ 190,00",
+      features: ["Tratamento intensivo", "Alívio imediato", "Resultados duradouros"]
     }
   ];
 
@@ -64,6 +80,31 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
+  // Interceptar eventos de fullscreen dos vídeos
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      if (document.fullscreenElement) {
+        const videoElement = document.fullscreenElement as HTMLVideoElement;
+        if (videoElement.tagName === 'VIDEO') {
+          // Sai do fullscreen e abre o modal com tamanho original
+          document.exitFullscreen();
+          
+          // Identifica qual vídeo foi clicado e abre o modal correspondente
+          if (videoElement.id === 'video1') {
+            openVideoModal("/imagens_videos/Técnica de Liberação.mp4");
+          } else if (videoElement.id === 'video2') {
+            openVideoModal("/imagens_videos/Massagem Terapêutica.mp4");
+          } else if (videoElement.id === 'video3') {
+            openVideoModal("/imagens_videos/Relaxamento Profundo.mp4");
+          }
+        }
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
   // Função para abrir o modal
   const openModal = (imageSrc: string) => {
     setModalImage(imageSrc);
@@ -72,6 +113,11 @@ export default function Home() {
   // Função para fechar o modal
   const closeModal = () => {
     setModalImage(null);
+  };
+
+  // Função para abrir o modal de vídeo
+  const openVideoModal = (videoSrc: string) => {
+    setModalImage(videoSrc);
   };
 
   // Função para abrir modal de agendamento
@@ -102,22 +148,22 @@ export default function Home() {
         right: 0,
         zIndex: 50,
         backgroundColor: 'rgba(255, 255, 255, 0.98)',
-        backdropFilter: 'blur(15px)',
-        borderBottom: '1px solid #A0D4D8',
-        boxShadow: '0 4px 20px rgba(160, 212, 216, 0.15)'
+        backdropFilter: 'blur(25px)',
+        borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.12)'
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '80px' }}>
             {/* Logo */}
-            <a 
-              href="#início" 
+                        <div 
               style={{ 
                 display: 'flex', 
                 alignItems: 'center', 
                 gap: '1rem', 
-                textDecoration: 'none',
-                transition: 'transform 0.2s'
+                transition: 'all 0.3s ease',
+                cursor: 'pointer'
               }}
+              onClick={() => openVideoModal("/logo massagem joao.svg")}
               onMouseEnter={(e) => (e.target as HTMLElement).style.transform = 'scale(1.05)'}
               onMouseLeave={(e) => (e.target as HTMLElement).style.transform = 'scale(1)'}
             >
@@ -125,47 +171,77 @@ export default function Home() {
                 src="/logo massagem joao.svg" 
                 alt="João Marques Massoterapia" 
                 style={{ 
-                  width: '50px', 
-                  height: '50px',
-                  borderRadius: '50%'
+                  width: '48px', 
+                  height: '48px',
+                  borderRadius: '50%',
+                  boxShadow: '0 4px 15px rgba(160, 212, 216, 0.4)',
+                  transition: 'all 0.3s ease'
                 }} 
               />
               <div style={{ 
                 fontSize: '1.75rem', 
-                fontWeight: 'bold', 
-                color: '#2D2D2D',
-                fontFamily: 'Inter, system-ui, sans-serif'
+                fontWeight: '800', 
+                color: '#1E293B',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                letterSpacing: '-0.025em',
+                position: 'relative'
               }}>
-                João Marques
+                <span style={{
+                  background: 'linear-gradient(135deg, #A0D4D8, #F1C0D1)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  fontWeight: '900'
+                }}>
+                  João
+                </span>
+                {' '}
+                <span style={{
+                  color: '#0F766E',
+                  fontWeight: '800'
+                }}>
+                  Marques
+                </span>
+                <div style={{
+                  position: 'absolute',
+                  bottom: '-2px',
+                  left: '0',
+                  width: '100%',
+                  height: '2px',
+                  background: 'linear-gradient(90deg, #A0D4D8, #F1C0D1)',
+                  borderRadius: '1px'
+                }}></div>
               </div>
-            </a>
+            </div>
             
-            {/* Navigation - Always Visible */}
+            {/* Navigation - Modern and Clean */}
             <nav style={{ 
               display: 'flex', 
               gap: '3rem', 
               alignItems: 'center'
             }}>
-              {['Início', 'Serviços', 'Sobre', 'Contato'].map((item) => (
+              {['Início', 'Sobre', 'Serviços', 'Contato', 'Agenda'].map((item) => (
                 <a
                   key={item}
-                  href={item === 'Serviços' ? '#servicos' : `#${item.toLowerCase()}`}
+                  href={item === 'Serviços' ? '#servicos' : 
+                        item === 'Agenda' ? '#agende-sessao' : 
+                        `#${item.toLowerCase()}`}
                   style={{
-                    color: '#A0D4D8',
+                    color: '#475569',
                     textDecoration: 'none',
                     fontWeight: '600',
-                    fontSize: '1.125rem',
+                    fontSize: '1rem',
                     padding: '0.75rem 1rem',
-                    borderRadius: '0.5rem',
-                    transition: 'all 0.3s',
+                    borderRadius: '8px',
+                    transition: 'all 0.3s ease',
                     position: 'relative'
                   }}
                   onMouseEnter={(e) => {
-                    (e.target as HTMLElement).style.color = '#2D2D2D';
-                    (e.target as HTMLElement).style.backgroundColor = '#F1C0D1';
+                    (e.target as HTMLElement).style.color = '#A0D4D8';
+                    (e.target as HTMLElement).style.backgroundColor = 'rgba(160, 212, 216, 0.1)';
                   }}
                   onMouseLeave={(e) => {
-                    (e.target as HTMLElement).style.color = '#A0D4D8';
+                    (e.target as HTMLElement).style.color = '#475569';
                     (e.target as HTMLElement).style.backgroundColor = 'transparent';
                   }}
                 >
@@ -179,7 +255,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <section id="início" style={{
-        minHeight: '100vh',
+        minHeight: '70vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -188,563 +264,471 @@ export default function Home() {
         background: 'linear-gradient(135deg, #A0D4D8 0%, #F1C0D1 100%)',
         color: 'white',
         textAlign: 'center',
-        padding: '0 1rem'
+        padding: '6rem 1rem 4rem 1rem'
       }}>
+        {/* Background Pattern */}
         <div style={{
           position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'rgba(0, 0, 0, 0.3)',
+          background: `
+            radial-gradient(circle at 20% 80%, rgba(160, 212, 216, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(241, 192, 209, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.1) 0%, transparent 50%)
+          `,
           zIndex: 1
         }}></div>
         
         <div style={{
           position: 'relative',
           zIndex: 2,
-          maxWidth: '800px',
-          margin: '0 auto'
+          maxWidth: '1000px',
+          margin: '0 auto',
+          padding: '0 2rem'
         }}>
-          <h1 style={{
-            fontSize: 'clamp(3rem, 8vw, 5rem)',
-            fontWeight: 'bold',
+          {/* Badge */}
+          <div style={{
+            display: 'inline-block',
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            color: '#0F766E',
+            padding: '0.75rem 2rem',
+            borderRadius: '25px',
+            fontSize: '0.875rem',
+            fontWeight: '700',
             marginBottom: '2rem',
-            lineHeight: 1.2
+            backdropFilter: 'blur(10px)',
+            boxShadow: '0 6px 20px rgba(15, 118, 110, 0.25)',
+            border: '1px solid rgba(15, 118, 110, 0.1)'
+          }}>
+            ✨ Especialista em Massoterapia
+          </div>
+          
+          <h1 style={{
+            fontSize: 'clamp(2.5rem, 6vw, 4rem)',
+            fontWeight: '800',
+            marginBottom: '1.5rem',
+            lineHeight: '1.1',
+            color: '#0F172A',
+            letterSpacing: '-0.02em'
           }}>
             Bem-estar através do{' '}
-            <span style={{ color: '#2D2D2D' }}>toque terapêutico</span>
+            <span style={{
+              color: '#0F766E',
+              fontWeight: '900'
+            }}>
+              toque terapêutico
+            </span>
           </h1>
+          
           <p style={{
-            fontSize: 'clamp(1.125rem, 3vw, 1.5rem)',
+            fontSize: 'clamp(1.125rem, 2.5vw, 1.25rem)',
             marginBottom: '3rem',
-            maxWidth: '600px',
+            maxWidth: '700px',
             marginLeft: 'auto',
             marginRight: 'auto',
-            opacity: 0.9
+            color: '#1E293B',
+            lineHeight: 1.7,
+            fontWeight: '600'
           }}>
             Especialista em liberação miofascial e massoterapia. Descubra o poder da cura 
             através de técnicas especializadas que promovem relaxamento, alívio da dor e 
             bem-estar integral.
           </p>
+          
           <div style={{
             display: 'flex',
-            flexDirection: 'column',
-            gap: '1rem',
             justifyContent: 'center',
             alignItems: 'center'
-          }} className="sm:flex-row">
+          }}>
             <button 
               onClick={openBookingModal}
               style={{
-                backgroundColor: '#2D2D2D',
+                backgroundColor: '#A0D4D8',
                 color: '#FFFFFF',
-                padding: '1rem 2rem',
-                borderRadius: '50px',
-                fontWeight: '600',
+                padding: '1rem 2.5rem',
+                borderRadius: '12px',
+                fontWeight: '700',
                 border: 'none',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.5rem',
+                gap: '0.75rem',
                 fontSize: '1.125rem',
-                transition: 'all 0.3s',
-                boxShadow: '0 10px 25px rgba(45, 45, 45, 0.3)'
+                transition: 'all 0.3s ease',
+                boxShadow: '0 8px 25px rgba(160, 212, 216, 0.4)',
+                transform: 'translateY(0)'
               }}
               onMouseEnter={(e) => {
-                (e.target as HTMLElement).style.transform = 'translateY(-2px)';
-                (e.target as HTMLElement).style.boxShadow = '0 15px 35px rgba(45, 45, 45, 0.4)';
+                (e.target as HTMLElement).style.transform = 'translateY(-4px)';
+                (e.target as HTMLElement).style.boxShadow = '0 12px 35px rgba(160, 212, 216, 0.5)';
               }}
               onMouseLeave={(e) => {
                 (e.target as HTMLElement).style.transform = 'translateY(0)';
-                (e.target as HTMLElement).style.boxShadow = '0 10px 25px rgba(45, 45, 45, 0.3)';
+                (e.target as HTMLElement).style.boxShadow = '0 8px 25px rgba(160, 212, 216, 0.4)';
               }}
             >
-              <Calendar size={24} />
+              <Calendar size={22} />
               Agendar Sessão
               <ArrowRight size={20} />
             </button>
-            <button 
-              onClick={scrollToServices}
-              style={{
-                border: '2px solid white',
-                color: 'white',
-                backgroundColor: 'transparent',
-                padding: '1rem 2rem',
-                borderRadius: '50px',
-                fontWeight: '600',
-                cursor: 'pointer',
-                fontSize: '1.125rem',
-                transition: 'all 0.3s'
-              }}
-              onMouseEnter={(e) => {
-                (e.target as HTMLElement).style.backgroundColor = '#2D2D2D';
-                (e.target as HTMLElement).style.color = '#FFFFFF';
-              }}
-              onMouseLeave={(e) => {
-                (e.target as HTMLElement).style.backgroundColor = 'transparent';
-                (e.target as HTMLElement).style.color = '#FFFFFF';
-              }}
-            >
-              Saiba Mais
-            </button>
+            
+
+          </div>
+          
+          {/* Stats */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '3rem',
+            marginTop: '4rem',
+            flexWrap: 'wrap'
+          }}>
+            {[
+              { number: '3+', label: 'Anos de Experiência' },
+              { number: '100+', label: 'Clientes Atendidos' },
+              { number: '100%', label: 'Satisfação' }
+            ].map((stat, index) => (
+              <div key={index} style={{
+                textAlign: 'center',
+                color: '#1E293B'
+              }}>
+                <div style={{
+                  fontSize: '2.5rem',
+                  fontWeight: '900',
+                  color: '#0F172A',
+                  marginBottom: '0.5rem',
+                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+                }}>
+                  {stat.number}
+                </div>
+                <div style={{
+                  fontSize: '0.875rem',
+                  fontWeight: '600',
+                  color: '#334155'
+                }}>
+                  {stat.label}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Image Carousel Section */}
+      {/* Galeria de Imagens Premium */}
       <section style={{
-        padding: '4rem 1rem',
+        padding: '6rem 1rem',
         backgroundColor: 'white'
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          {/* Header Estilizado */}
+          <div style={{ marginBottom: '4rem' }}>
             <h2 style={{
-              fontSize: '2.5rem',
-              fontWeight: 'bold',
-              color: '#1f2937',
-              marginBottom: '1rem'
+              fontSize: 'clamp(2rem, 4vw, 2.5rem)',
+              fontWeight: '800',
+              color: '#0F766E',
+              marginBottom: '0.5rem',
+              letterSpacing: '-0.02em',
+              textAlign: 'left'
             }}>
-              Nossos Momentos
+              Galeria
             </h2>
-            <p style={{
-              fontSize: '1.125rem',
-              color: '#6b7280',
-              maxWidth: '500px',
-              margin: '0 auto'
-            }}>
-              Galeria de imagens do nosso ambiente e técnicas terapêuticas
-            </p>
-          </div>
-
-          <div style={{
-            position: 'relative',
-            overflow: 'hidden',
-            borderRadius: '1rem',
-            boxShadow: '0 25px 50px rgba(0, 0, 0, 0.1)'
-          }}>
-            <div style={{
-              display: 'flex',
-              transition: 'transform 0.5s ease-in-out',
-              transform: `translateX(-${currentSlide * 100}%)`
-            }} id="carousel">
-              <div style={{
-                minWidth: '100%',
-                height: '400px',
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#f8f9fa'
-              }}>
-                <img 
-                  src="/imagens_videos/IMG-20250826-WA0020.jpg"
-                  alt="Massagem Terapêutica Profissional"
-                  style={{
-                    maxWidth: '100%',
-                    maxHeight: '100%',
-                    objectFit: 'contain',
-                    borderRadius: '0.5rem'
-                  }}
-                />
-                <div style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  background: 'linear-gradient(transparent, rgba(0,0,0,0.7))',
-                  color: 'white',
-                  padding: '2rem',
-                  textAlign: 'center'
-                }}>
-                  <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
-                    Massagem Terapêutica
-                  </h3>
-                  <p>Ambiente profissional e técnicas especializadas</p>
-                </div>
-              </div>
-              
-              <div style={{
-                minWidth: '100%',
-                height: '400px',
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#f8f9fa'
-              }}>
-                <img 
-                  src="/imagens_videos/IMG-20250826-WA0018.jpg"
-                  alt="João Marques - Especialista"
-                  style={{
-                    maxWidth: '100%',
-                    maxHeight: '100%',
-                    objectFit: 'contain',
-                    borderRadius: '0.5rem'
-                  }}
-                />
-                <div style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  background: 'linear-gradient(transparent, rgba(0,0,0,0.7))',
-                  color: 'white',
-                  padding: '2rem',
-                  textAlign: 'center'
-                }}>
-                  <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
-                    João Marques
-                  </h3>
-                  <p>Especialista em Massoterapia e Liberação Miofascial</p>
-                </div>
-              </div>
-              
-              <div style={{
-                minWidth: '100%',
-                height: '400px',
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#f8f9fa'
-              }}>
-                <img 
-                  src="/imagens_videos/IMG-20250826-WA0019.jpg"
-                  alt="Técnica de Liberação"
-                  style={{
-                    maxWidth: '100%',
-                    maxHeight: '100%',
-                    objectFit: 'contain',
-                    borderRadius: '0.5rem'
-                  }}
-                />
-                <div style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  background: 'linear-gradient(transparent, rgba(0,0,0,0.7))',
-                  color: 'white',
-                  padding: '2rem',
-                  textAlign: 'center'
-                }}>
-                  <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
-                    Liberação Miofascial
-                  </h3>
-                  <p>Técnica especializada para alívio de tensões</p>
-                </div>
-              </div>
-              
-              <div style={{
-                minWidth: '100%',
-                height: '400px',
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#f8f9fa'
-              }}>
-                <img 
-                  src="/imagens_videos/IMG-20250826-WA0017.jpg"
-                  alt="Massagem Relaxante"
-                  style={{
-                    maxWidth: '100%',
-                    maxHeight: '100%',
-                    objectFit: 'contain',
-                    borderRadius: '0.5rem'
-                  }}
-                />
-                <div style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  background: 'linear-gradient(transparent, rgba(0,0,0,0.7))',
-                  color: 'white',
-                  padding: '2rem',
-                  textAlign: 'center'
-                }}>
-                  <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
-                    Massagem Relaxante
-                  </h3>
-                  <p>Promovendo relaxamento e bem-estar</p>
-                </div>
-              </div>
-              
-              <div style={{
-                minWidth: '100%',
-                height: '400px',
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#f8f9fa'
-              }}>
-                <img 
-                  src="/imagens_videos/IMG-20250826-WA0016.jpg"
-                  alt="Ambiente Terapêutico"
-                  style={{
-                    maxWidth: '100%',
-                    maxHeight: '100%',
-                    objectFit: 'contain',
-                    borderRadius: '0.5rem'
-                  }}
-                />
-                <div style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  background: 'linear-gradient(transparent, rgba(0,0,0,0.7))',
-                  color: 'white',
-                  padding: '2rem',
-                  textAlign: 'center'
-                }}>
-                  <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
-                    Ambiente Terapêutico
-                  </h3>
-                  <p>Local acolhedor para sua sessão de massagem</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Navigation Buttons */}
-            <button 
-              onClick={() => {
-                setCurrentSlide((prev) => Math.max(prev - 1, 0));
-              }}
-              style={{
-                position: 'absolute',
-                left: '1rem',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                border: 'none',
-                borderRadius: '50%',
-                width: '50px',
-                height: '50px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                fontSize: '1.5rem',
-                color: '#1f2937',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                transition: 'all 0.3s'
-              }}
-              onMouseEnter={(e) => {
-                (e.target as HTMLElement).style.backgroundColor = 'white';
-                (e.target as HTMLElement).style.transform = 'translateY(-50%) scale(1.1)';
-              }}
-              onMouseLeave={(e) => {
-                (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-                (e.target as HTMLElement).style.transform = 'translateY(-50%) scale(1)';
-              }}
-            >
-              ‹
-            </button>
             
-            <button 
-              onClick={() => {
-                setCurrentSlide((prev) => (prev + 1) % 5);
-              }}
-              style={{
-                position: 'absolute',
-                right: '1rem',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                border: 'none',
-                borderRadius: '50%',
-                width: '50px',
-                height: '50px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                fontSize: '1.5rem',
-                color: '#1f2937',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                transition: 'all 0.3s'
-              }}
-              onMouseEnter={(e) => {
-                (e.target as HTMLElement).style.backgroundColor = 'white';
-                (e.target as HTMLElement).style.transform = 'translateY(-50%) scale(1.1)';
-              }}
-              onMouseLeave={(e) => {
-                (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-                (e.target as HTMLElement).style.transform = 'translateY(-50%) scale(1)';
-              }}
-            >
-              ›
-            </button>
-
-            {/* Dots Indicator */}
+            {/* Linha Decorativa */}
             <div style={{
-              position: 'absolute',
-              bottom: '1rem',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              display: 'flex',
-              gap: '0.5rem'
-            }}>
-              {[0, 1, 2, 3, 4].map((index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  style={{
-                    width: '12px',
-                    height: '12px',
-                    borderRadius: '50%',
-                    backgroundColor: index === currentSlide ? 'white' : 'rgba(255, 255, 255, 0.5)',
-                    border: 'none',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s'
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.target as HTMLElement).style.backgroundColor = 'white';
-                    (e.target as HTMLElement).style.transform = 'scale(1.2)';
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.target as HTMLElement).style.backgroundColor = index === currentSlide ? 'white' : 'rgba(255, 255, 255, 0.5)';
-                    (e.target as HTMLElement).style.transform = 'scale(1)';
-                  }}
-                />
-              ))}
-            </div>
+              height: '1px',
+              backgroundColor: '#1E293B',
+              borderTop: '2px dotted #1E293B',
+              width: '100%'
+            }}></div>
           </div>
-        </div>
-      </section>
 
-      {/* First Session Section */}
-      <section style={{
-        padding: '6rem 1rem',
-        background: 'linear-gradient(135deg, #FFFFFF 0%, #A0D4D8 100%)'
-      }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          {/* Grid de Imagens */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: '1fr',
-            gap: '4rem',
-            alignItems: 'center'
-          }} className="lg:grid-cols-2">
-            <div style={{ textAlign: 'center' }} className="lg:text-left">
-              <div style={{
-                width: '80px',
-                height: '80px',
-                backgroundColor: '#fef3c7',
-                borderRadius: '50%',
-                margin: '0 auto 2rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }} className="lg:mx-0">
-                <Heart size={40} style={{ color: '#f59e0b' }} />
-              </div>
-              <h2 style={{
-                fontSize: '2.5rem',
-                fontWeight: 'bold',
-                color: '#1f2937',
-                marginBottom: '1.5rem'
-              }}>
-                Primeira Sessão
-              </h2>
-              <p style={{
-                fontSize: '1.25rem',
-                color: '#6b7280',
-                marginBottom: '2rem',
-                lineHeight: 1.6
-              }}>
-                Experimente nossos serviços com desconto especial e descubra como podemos 
-                transformar sua qualidade de vida através de técnicas terapêuticas avançadas.
-              </p>
-              <div style={{
-                fontSize: '3rem',
-                fontWeight: 'bold',
-                color: '#f59e0b',
-                marginBottom: '2rem'
-              }}>
-                R$ 80
-              </div>
-              <button style={{
-                backgroundColor: '#f59e0b',
-                color: 'white',
-                padding: '1rem 2rem',
-                borderRadius: '50px',
-                fontWeight: '600',
-                border: 'none',
-                cursor: 'pointer',
-                fontSize: '1.125rem',
-                transition: 'all 0.3s',
-                boxShadow: '0 10px 25px rgba(245, 158, 11, 0.3)'
-              }}
-              onMouseEnter={(e) => {
-                (e.target as HTMLElement).style.transform = 'translateY(-2px)';
-                (e.target as HTMLElement).style.boxShadow = '0 15px 35px rgba(245, 158, 11, 0.4)';
-              }}
-              onMouseLeave={(e) => {
-                (e.target as HTMLElement).style.transform = 'translateY(0)';
-                (e.target as HTMLElement).style.boxShadow = '0 10px 25px rgba(245, 158, 11, 0.3)';
-              }}
-              >
-                Reservar Agora
-              </button>
-            </div>
-            
-            {/*             <div style={{ position: 'relative' }}>
-              <div 
-                onClick={() => openModal("/imagens_videos/IMG-20250826-WA0020.jpg")}
-                onMouseEnter={(e) => {
-                  const target = e.target as HTMLElement;
-                  target.style.transform = 'scale(1.1)';
-                  target.style.zIndex = '10';
-                  target.style.transition = 'all 0.3s ease';
-                  target.style.boxShadow = '0 35px 70px rgba(0, 0, 0, 0.25)';
-                }}
-                onMouseLeave={(e) => {
-                  const target = e.target as HTMLElement;
-                  target.style.transform = 'scale(1)';
-                  target.style.zIndex = '1';
-                  target.style.transition = 'all 0.3s ease';
-                  target.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.15)';
-                }}
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gap: '1.5rem',
+            marginBottom: '3rem'
+          }}>
+                        {/* Imagem 1 */}
+            <div style={{
+              position: 'relative',
+              borderRadius: '12px',
+              overflow: 'hidden',
+              boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              (e.target as HTMLElement).style.transform = 'translateY(-8px)';
+              (e.target as HTMLElement).style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.25)';
+            }}
+            onMouseLeave={(e) => {
+              (e.target as HTMLElement).style.transform = 'translateY(0)';
+              (e.target as HTMLElement).style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+            }}
+            onClick={() => openModal("/imagens_videos/foto1.jpg")}
+            >
+              <img 
+                src="/imagens_videos/foto1.jpg"
+                alt="Foto 1"
                 style={{
-                  width: '800px',
-                  height: '600px',
-                  maxWidth: '100%',
-                  maxHeight: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: '#f8f9fa',
-                  borderRadius: '1rem',
-                  boxShadow: '0 25px 50px rgba(0, 0, 0, 0.15)',
-                  margin: '0 auto',
-                  transition: 'all 0.3s ease',
-                  cursor: 'pointer'
+                  width: '100%',
+                  height: '260px',
+                  objectFit: 'cover',
+                  transition: 'transform 0.3s ease'
                 }}
-              >
-                <img 
-                  src="/imagens_videos/IMG-20250826-WA0020.jpg"
-                  alt="Massagem Terapêutica Profissional"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    borderRadius: '0.5rem'
-                  }}
-                />
-              </div>
-            </div> */}
+              />
+
+            </div>
+
+                        {/* Imagem 2 */}
+            <div style={{
+              position: 'relative',
+              borderRadius: '12px',
+              overflow: 'hidden',
+              boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              (e.target as HTMLElement).style.transform = 'translateY(-8px)';
+              (e.target as HTMLElement).style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.25)';
+            }}
+            onMouseLeave={(e) => {
+              (e.target as HTMLElement).style.transform = 'translateY(0)';
+              (e.target as HTMLElement).style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+            }}
+            onClick={() => openModal("/imagens_videos/foto2.jpg")}
+            >
+              <img 
+                src="/imagens_videos/foto2.jpg"
+                alt="Foto 2"
+                style={{
+                  width: '100%',
+                  height: '260px',
+                  objectFit: 'cover',
+                  transition: 'transform 0.3s ease'
+                }}
+              />
+
+            </div>
+
+                        {/* Imagem 3 */}
+            <div style={{
+              position: 'relative',
+              borderRadius: '12px',
+              overflow: 'hidden',
+              boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              (e.target as HTMLElement).style.transform = 'translateY(-8px)';
+              (e.target as HTMLElement).style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.25)';
+            }}
+            onMouseLeave={(e) => {
+              (e.target as HTMLElement).style.transform = 'translateY(0)';
+              (e.target as HTMLElement).style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+            }}
+            onClick={() => openModal("/imagens_videos/foto3.jpg")}
+            >
+              <img 
+                src="/imagens_videos/foto3.jpg"
+                alt="Foto 3"
+                style={{
+                  width: '100%',
+                  height: '260px',
+                  objectFit: 'cover',
+                  transition: 'transform 0.3s ease'
+                }}
+              />
+
+            </div>
+
+            {/* Imagem 4 */}
+            <div style={{
+              position: 'relative',
+              borderRadius: '12px',
+              overflow: 'hidden',
+              boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              (e.target as HTMLElement).style.transform = 'translateY(-8px)';
+              (e.target as HTMLElement).style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.25)';
+            }}
+            onMouseLeave={(e) => {
+              (e.target as HTMLElement).style.transform = 'translateY(0)';
+              (e.target as HTMLElement).style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+            }}
+            onClick={() => openModal("/imagens_videos/foto4.jpg")}
+            >
+              <img 
+                src="/imagens_videos/foto4.jpg"
+                alt="Foto 4"
+                style={{
+                  width: '100%',
+                  height: '260px',
+                  objectFit: 'cover',
+                  transition: 'transform 0.3s ease'
+                }}
+              />
+
+            </div>
+
+            {/* Imagem 5 */}
+            <div style={{
+              position: 'relative',
+              borderRadius: '12px',
+              overflow: 'hidden',
+              boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              (e.target as HTMLElement).style.transform = 'translateY(-8px)';
+              (e.target as HTMLElement).style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.25)';
+            }}
+            onMouseLeave={(e) => {
+              (e.target as HTMLElement).style.transform = 'translateY(0)';
+              (e.target as HTMLElement).style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+            }}
+            onClick={() => openModal("/imagens_videos/foto5.jpg")}
+            >
+              <img 
+                src="/imagens_videos/foto5.jpg"
+                alt="Foto 5"
+                style={{
+                  width: '100%',
+                  height: '260px',
+                  objectFit: 'cover',
+                  transition: 'transform 0.3s ease'
+                }}
+              />
+
+            </div>
+
+            {/* Imagem 6 */}
+            <div style={{
+              position: 'relative',
+              borderRadius: '12px',
+              overflow: 'hidden',
+              boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              (e.target as HTMLElement).style.transform = 'translateY(-8px)';
+              (e.target as HTMLElement).style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.25)';
+            }}
+            onMouseLeave={(e) => {
+              (e.target as HTMLElement).style.transform = 'translateY(0)';
+              (e.target as HTMLElement).style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+            }}
+            onClick={() => openModal("/imagens_videos/foto6.jpg")}
+            >
+              <img 
+                src="/imagens_videos/foto6.jpg"
+                alt="Foto 6"
+                style={{
+                  width: '100%',
+                  height: '260px',
+                  objectFit: 'cover',
+                  transition: 'transform 0.3s ease'
+                }}
+              />
+
+            </div>
+
+            {/* Imagem 7 */}
+            <div style={{
+              position: 'relative',
+              borderRadius: '12px',
+              overflow: 'hidden',
+              boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              (e.target as HTMLElement).style.transform = 'translateY(-8px)';
+              (e.target as HTMLElement).style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.25)';
+            }}
+            onMouseLeave={(e) => {
+              (e.target as HTMLElement).style.transform = 'translateY(0)';
+              (e.target as HTMLElement).style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+            }}
+            onClick={() => openModal("/imagens_videos/foto7.jpg")}
+            >
+              <img 
+                src="/imagens_videos/foto7.jpg"
+                alt="Foto 7"
+                style={{
+                  width: '100%',
+                  height: '260px',
+                  objectFit: 'cover',
+                  transition: 'transform 0.3s ease'
+                }}
+              />
+
+            </div>
+
+            {/* Imagem 8 */}
+            <div style={{
+              position: 'relative',
+              borderRadius: '12px',
+              overflow: 'hidden',
+              boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              (e.target as HTMLElement).style.transform = 'translateY(-8px)';
+              (e.target as HTMLElement).style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.25)';
+            }}
+            onMouseLeave={(e) => {
+              (e.target as HTMLElement).style.transform = 'translateY(0)';
+              (e.target as HTMLElement).style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+            }}
+            onClick={() => openModal("/imagens_videos/foto8.jpg")}
+            >
+              <img 
+                src="/imagens_videos/foto8.jpg"
+                alt="Foto 8"
+                style={{
+                  width: '100%',
+                  height: '260px',
+                  objectFit: 'cover',
+                  transition: 'transform 0.3s ease'
+                }}
+              />
+
+            </div>
+          </div>
+
+          {/* Descrição */}
+          <div style={{ textAlign: 'center' }}>
+            <p style={{
+              fontSize: '1.125rem',
+              color: '#64748B',
+              maxWidth: '600px',
+              margin: '0 auto',
+              lineHeight: 1.6,
+              fontWeight: '500'
+            }}>
+              Clique em qualquer imagem para visualizá-la em tamanho completo e conhecer melhor nosso ambiente e técnicas terapêuticas.
+            </p>
           </div>
         </div>
       </section>
 
       {/* About Section */}
       <section id="sobre" style={{
-        padding: '6rem 1rem',
-        background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)'
+        padding: '5rem 1rem',
+        backgroundColor: '#F8FAFC'
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{
@@ -755,66 +739,184 @@ export default function Home() {
           }} className="lg:grid-cols-2">
             <div style={{ textAlign: 'center' }} className="lg:text-left">
               <h2 style={{
-                fontSize: '3rem',
-                fontWeight: 'bold',
-                color: '#1f2937',
-                marginBottom: '2rem'
+                fontSize: '2.5rem',
+                fontWeight: '700',
+                color: '#1E293B',
+                marginBottom: '1.5rem'
               }}>
-                Sobre Nós
+                João Marques – Massoterapeuta
               </h2>
               <p style={{
                 fontSize: '1.25rem',
-                color: '#6b7280',
+                color: '#0F766E',
                 marginBottom: '2rem',
-                lineHeight: 1.6
+                lineHeight: 1.6,
+                fontStyle: 'italic',
+                fontWeight: '600'
               }}>
-                Somos especialistas dedicados ao seu bem-estar, com anos de experiência 
-                em técnicas terapêuticas avançadas de massagem e liberação miofascial.
+                "Gente que transforma dor em cuidado"
               </p>
-              <div style={{ textAlign: 'left' }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '1rem',
-                  marginBottom: '1rem'
-                }}>
-                  <CheckCircle size={24} style={{ color: '#10b981' }} />
-                  <span style={{ color: '#6b7280', fontSize: '1.125rem' }}>
-                    Profissionais certificados e experientes
-                  </span>
+              
+              <p style={{
+                fontSize: '1.125rem',
+                color: '#64748B',
+                marginBottom: '2.5rem',
+                lineHeight: 1.7,
+                maxWidth: '800px',
+                margin: '0 auto 2.5rem auto'
+              }}>
+                Especializado em técnicas terapêuticas avançadas, eu ofereço serviços personalizados de massagem e liberação miofascial, com foco no alívio da dor e na promoção do bem-estar. Seu atendimento é feito no conforto da sua casa, garantindo uma experiência relaxante e eficaz.
+              </p>
+              
+
+              
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr 1fr',
+                gap: '3rem',
+                marginTop: '2rem',
+                alignItems: 'start'
+              }}>
+                <div style={{ textAlign: 'left' }}>
+                  <h3 style={{
+                    fontSize: '1.5rem',
+                    fontWeight: '700',
+                    color: '#1E293B',
+                    marginBottom: '1rem'
+                  }}>
+                    Técnicas e especialidades:
+                  </h3>
+                  <ul style={{
+                    listStyle: 'none',
+                    padding: 0,
+                    margin: 0
+                  }}>
+                    <li style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                      marginBottom: '0.75rem',
+                      color: '#64748B',
+                      fontSize: '1rem'
+                    }}>
+                      <CheckCircle size={18} style={{ color: '#A0D4D8' }} />
+                      Liberação Miofascial
+                    </li>
+                    <li style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                      marginBottom: '0.75rem',
+                      color: '#64748B',
+                      fontSize: '1rem'
+                    }}>
+                      <CheckCircle size={18} style={{ color: '#A0D4D8' }} />
+                      Ventosaterapia
+                    </li>
+                    <li style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                      marginBottom: '0.75rem',
+                      color: '#64748B',
+                      fontSize: '1rem'
+                    }}>
+                      <CheckCircle size={18} style={{ color: '#A0D4D8' }} />
+                      Massagem Desportiva
+                    </li>
+                    <li style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                      marginBottom: '0.75rem',
+                      color: '#64748B',
+                      fontSize: '1rem'
+                    }}>
+                      <CheckCircle size={18} style={{ color: '#A0D4D8' }} />
+                      Massagem Relaxante
+                    </li>
+                    <li style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                      marginBottom: '0.75rem',
+                      color: '#64748B',
+                      fontSize: '1rem'
+                    }}>
+                      <CheckCircle size={18} style={{ color: '#A0D4D8' }} />
+                      Dry Needling
+                    </li>
+                  </ul>
                 </div>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '1rem',
-                  marginBottom: '1rem'
-                }}>
-                  <CheckCircle size={24} style={{ color: '#10b981' }} />
-                  <span style={{ color: '#6b7280', fontSize: '1.125rem' }}>
-                    Ambiente relaxante e acolhedor
-                  </span>
+                
+                <div style={{ textAlign: 'left' }}>
+                  <h3 style={{
+                    fontSize: '1.5rem',
+                    fontWeight: '700',
+                    color: '#1E293B',
+                    marginBottom: '1rem'
+                  }}>
+                    Diferenciais do atendimento:
+                  </h3>
+                  <ul style={{
+                    listStyle: 'none',
+                    padding: 0,
+                    margin: 0
+                  }}>
+                    <li style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                      marginBottom: '0.75rem',
+                      color: '#64748B',
+                      fontSize: '1rem'
+                    }}>
+                      <CheckCircle size={18} style={{ color: '#A0D4D8' }} />
+                      Atendimento individualizado e personalizado
+                    </li>
+                    <li style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                      marginBottom: '0.75rem',
+                      color: '#64748B',
+                      fontSize: '1rem'
+                    }}>
+                      <CheckCircle size={18} style={{ color: '#A0D4D8' }} />
+                      Conforto e conveniência de ser atendido em casa
+                    </li>
+                    <li style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                      marginBottom: '0.75rem',
+                      color: '#64748B',
+                      fontSize: '1rem'
+                    }}>
+                      <CheckCircle size={18} style={{ color: '#A0D4D8' }} />
+                      Foco no alívio de dores e tensões do dia a dia
+                    </li>
+                  </ul>
                 </div>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '1rem',
-                  marginBottom: '1rem'
-                }}>
-                  <CheckCircle size={24} style={{ color: '#10b981' }} />
-                  <span style={{ color: '#6b7280', fontSize: '1.125rem' }}>
-                    Técnicas personalizadas para cada cliente
-                  </span>
-                </div>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '1rem',
-                  marginBottom: '1rem'
-                }}>
-                  <CheckCircle size={24} style={{ color: '#10b981' }} />
-                  <span style={{ color: '#6b7280', fontSize: '1.125rem' }}>
-                    Compromisso com resultados e satisfação
-                  </span>
+                
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{
+                    width: '100%',
+                    maxWidth: '300px',
+                    margin: '0 auto'
+                  }}>
+                    <img 
+                      src="/imagens_videos/perfil1.jpg"
+                      alt="João Marques - Massoterapeuta"
+                      style={{
+                        width: '100%',
+                        height: 'auto',
+                        borderRadius: '1rem',
+                        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
+                        objectFit: 'cover'
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -870,22 +972,22 @@ export default function Home() {
 
       {/* Services Section */}
       <section id="servicos" style={{
-        padding: '6rem 1rem',
-        backgroundColor: 'white'
+        padding: '5rem 1rem',
+        backgroundColor: '#F8FAFC'
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <h2 style={{
-              fontSize: '3rem',
-              fontWeight: 'bold',
-              color: '#1f2937',
-              marginBottom: '1.5rem'
+              fontSize: '2.5rem',
+              fontWeight: '700',
+              color: '#1E293B',
+              marginBottom: '1rem'
             }}>
               Nossos Serviços
             </h2>
             <p style={{
-              fontSize: '1.25rem',
-              color: '#6b7280',
+              fontSize: '1.125rem',
+              color: '#64748B',
               maxWidth: '600px',
               margin: '0 auto',
               lineHeight: 1.6
@@ -897,78 +999,80 @@ export default function Home() {
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-            gap: '2rem'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '2.5rem'
           }}>
             {services.map((service) => (
-              <div key={service.title} style={{
+              <div key={service.title} className="service-card" style={{
                 backgroundColor: 'white',
-                borderRadius: '1rem',
-                boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
+                borderRadius: '12px',
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
                 overflow: 'hidden',
-                transition: 'all 0.3s',
-                cursor: 'pointer'
-              }}
-              onMouseEnter={(e) => {
-                (e.target as HTMLElement).style.transform = 'translateY(-8px)';
-                (e.target as HTMLElement).style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.15)';
-              }}
-              onMouseLeave={(e) => {
-                (e.target as HTMLElement).style.transform = 'translateY(0)';
-                (e.target as HTMLElement).style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
-              }}
-              >
+                transition: 'all 0.3s ease',
+                cursor: 'default',
+                border: '1px solid rgba(160, 212, 216, 0.1)'
+              }}>
                 <div style={{
                   position: 'relative',
                   overflow: 'hidden'
                 }}>
-                  <div 
-                    onClick={() => openModal(
-                      service.title === "Massagem Relaxante" ? "/imagens_videos/IMG-20250826-WA0016.jpg" :
-                      service.title === "Liberação Miofascial" ? "/imagens_videos/IMG-20250826-WA0019.jpg" :
-                      service.title === "Massagem Desportiva" ? "/imagens_videos/IMG-20250826-WA0017.jpg" :
-                      "/imagens_videos/IMG-20250826-WA0018.jpg"
-                    )}
-                    onMouseEnter={(e) => {
-                      const target = e.target as HTMLElement;
-                      target.style.transform = 'scale(1.05)';
-                      target.style.zIndex = '10';
-                      target.style.transition = 'all 0.3s ease';
-                      target.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.2)';
-                    }}
-                    onMouseLeave={(e) => {
-                      const target = e.target as HTMLElement;
-                      target.style.transform = 'scale(1)';
-                      target.style.zIndex = '1';
-                      target.style.transition = 'all 0.3s ease';
-                      target.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
-                    }}
+                                                        <div 
+                    onClick={() => openModal((() => {
+                      switch(service.title) {
+                        case "💆‍♀ Massagem Relaxante":
+                          return "/imagens_videos/Massagem_Relaxante.jpg";
+                        case "⚙ Liberação Miofascial + Ventosaterapia":
+                          return "/imagens_videos/Liberação_Miofascial.jpg";
+                        case "⚽ Massagem Desportiva":
+                          return "/imagens_videos/Massagem_Desportiva.jpg";
+                        case "🎋 Bambuterapia":
+                          return "/imagens_videos/Bambuterapia.jpg";
+                        case "🔥 Massagem Relaxante com Pedras":
+                          return "/imagens_videos/Massagem_Relaxante_Pedras.jpg";
+                        case "🕉️ Massagem + Agulhamento a Seco":
+                          return "/imagens_videos/Massagem_Agulhamento_Seco.jpg";
+                        default:
+                          return "/imagens_videos/Bambuterapia.jpg";
+                        }
+                      })())}
                     style={{
-                      width: '400px',
-                      height: '300px',
-                      maxWidth: '100%',
-                      maxHeight: '100%',
+                      width: '100%',
+                      height: 'auto',
+                      minHeight: '200px',
+                      maxHeight: '400px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      backgroundColor: '#f8f9fa',
                       borderRadius: '0.5rem',
                       margin: '0 auto',
-                      transition: 'all 0.3s ease',
-                      cursor: 'pointer',
-                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
+                      cursor: 'pointer'
                     }}
                   >
                     <img 
-                      src={service.title === "Massagem Relaxante" ? "/imagens_videos/IMG-20250826-WA0016.jpg" :
-                           service.title === "Liberação Miofascial" ? "/imagens_videos/IMG-20250826-WA0019.jpg" :
-                           service.title === "Massagem Desportiva" ? "/imagens_videos/IMG-20250826-WA0017.jpg" :
-                           "/imagens_videos/IMG-20250826-WA0018.jpg"}
+                      src={(() => {
+                        switch(service.title) {
+                          case "💆‍♀ Massagem Relaxante":
+                            return "/imagens_videos/Massagem_Relaxante.jpg";
+                          case "⚙ Liberação Miofascial + Ventosaterapia":
+                            return "/imagens_videos/Liberação_Miofascial.jpg";
+                          case "⚽ Massagem Desportiva":
+                            return "/imagens_videos/Massagem_Desportiva.jpg";
+                          case "🎋 Bambuterapia":
+                            return "/imagens_videos/Bambuterapia.jpg";
+                          case "🔥 Massagem Relaxante com Pedras":
+                            return "/imagens_videos/Massagem_Relaxante_Pedras.jpg";
+                          case "🕉️ Massagem + Agulhamento a Seco":
+                            return "/imagens_videos/Massagem_Agulhamento_Seco.jpg";
+                          default:
+                            return "/imagens_videos/Bambuterapia.jpg";
+                        }
+                      })()}
                       alt={`Imagem de ${service.title}`}
                       style={{
                         width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
+                        height: 'auto',
+                        maxHeight: '100%',
+                        objectFit: 'contain',
                         borderRadius: '0.5rem'
                       }}
                     />
@@ -981,12 +1085,12 @@ export default function Home() {
                     <div style={{
                       width: '48px',
                       height: '48px',
-                      backgroundColor: '#3b82f6',
-                      borderRadius: '0.5rem',
+                      backgroundColor: '#A0D4D8',
+                      borderRadius: '8px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)'
+                      boxShadow: '0 4px 12px rgba(160, 212, 216, 0.3)'
                     }}>
                       <service.icon size={24} style={{ color: 'white' }} />
                     </div>
@@ -994,18 +1098,17 @@ export default function Home() {
                 </div>
                 
                 <div style={{ padding: '2rem' }}>
-                  <h3 style={{
+                  <h3 className="service-title" style={{
                     fontSize: '1.5rem',
-                    fontWeight: 'bold',
-                    color: '#1f2937',
+                    fontWeight: '700',
                     marginBottom: '1rem'
                   }}>
                     {service.title}
                   </h3>
-                  <p style={{
-                    color: '#6b7280',
+                  <p className="service-description" style={{
                     marginBottom: '1.5rem',
-                    lineHeight: 1.6
+                    lineHeight: 1.6,
+                    fontSize: '1rem'
                   }}>
                     {service.description}
                   </p>
@@ -1018,8 +1121,10 @@ export default function Home() {
                         gap: '0.75rem',
                         marginBottom: '0.5rem'
                       }}>
-                        <CheckCircle size={18} style={{ color: '#10b981', flexShrink: 0 }} />
-                        <span style={{ color: '#6b7280', fontSize: '0.875rem' }}>{feature}</span>
+                        <CheckCircle size={18} style={{ color: '#A0D4D8', flexShrink: 0 }} />
+                        <span className="service-feature" style={{ 
+                          fontSize: '0.875rem'
+                        }}>{feature}</span>
                       </div>
                     ))}
                   </div>
@@ -1029,18 +1134,288 @@ export default function Home() {
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     paddingTop: '1.5rem',
-                    borderTop: '1px solid #f3f4f6'
+                    borderTop: '1px solid #F1F5F9'
                   }}>
-                    <span style={{ color: '#6b7280', fontWeight: '500' }}>{service.duration}</span>
-                    <span style={{
-                      fontSize: '1.875rem',
-                      fontWeight: 'bold',
-                      color: '#3b82f6'
+                    <span className="service-duration" style={{ 
+                      fontWeight: '500', 
+                      fontSize: '0.875rem'
+                    }}>{service.duration}</span>
+                    <span className="service-price" style={{
+                      fontSize: '1.5rem',
+                      fontWeight: '700'
                     }}>{service.price}</span>
                   </div>
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Massage Corporativa Section */}
+      <section style={{
+        padding: '5rem 1rem',
+        backgroundColor: 'white'
+      }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+            <h2 style={{
+              fontSize: '2.5rem',
+              fontWeight: '700',
+              color: '#1E293B',
+              marginBottom: '1rem'
+            }}>
+              Quick Massage Corporativa
+            </h2>
+            <p style={{
+              fontSize: '1.125rem',
+              color: '#64748B',
+              maxWidth: '700px',
+              margin: '0 auto',
+              lineHeight: 1.6
+            }}>
+              Proporcionamos aos colaboradores momentos de relaxamento, alívio de tensões e aumento 
+              da produtividade através da Quick Massage, uma técnica prática e eficiente, realizada 
+              em cadeira específica, sem necessidade de retirada das roupas.
+            </p>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+            gap: '2rem'
+          }}>
+            {/* Sessão Individual */}
+            <div style={{
+              backgroundColor: '#F8FAFC',
+              padding: '2rem',
+              borderRadius: '12px',
+              border: '1px solid rgba(160, 212, 216, 0.2)',
+              textAlign: 'center'
+            }}>
+              <div style={{
+                width: '64px',
+                height: '64px',
+                backgroundColor: '#F1C0D1',
+                borderRadius: '12px',
+                margin: '0 auto 1rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <Heart size={32} style={{ color: '#E91E63' }} />
+              </div>
+              <h3 style={{
+                fontSize: '1.5rem',
+                fontWeight: '700',
+                color: '#1E293B',
+                marginBottom: '1rem'
+              }}>
+                💆 Sessão Individual
+              </h3>
+              <p style={{
+                color: '#64748B',
+                marginBottom: '1rem',
+                fontSize: '1rem'
+              }}>
+                Tempo: 10 a 20 minutos
+              </p>
+              <div style={{
+                fontSize: '1.25rem',
+                fontWeight: '700',
+                color: '#A0D4D8',
+                marginBottom: '1rem'
+              }}>
+                Pacote Avulso
+              </div>
+              <p style={{
+                color: '#64748B',
+                fontSize: '0.875rem',
+                marginBottom: '1rem'
+              }}>
+                Menos que 10 pessoas
+              </p>
+              <div style={{
+                fontSize: '2rem',
+                fontWeight: '700',
+                color: '#1E293B'
+              }}>
+                R$ 45 por pessoa
+              </div>
+            </div>
+
+            {/* Pacote Meio Período */}
+            <div style={{
+              backgroundColor: '#F8FAFC',
+              padding: '2rem',
+              borderRadius: '12px',
+              border: '1px solid rgba(160, 212, 216, 0.2)',
+              textAlign: 'center'
+            }}>
+              <div style={{
+                width: '64px',
+                height: '64px',
+                backgroundColor: '#A0D4D8',
+                borderRadius: '12px',
+                margin: '0 auto 1rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <Clock size={32} style={{ color: 'white' }} />
+              </div>
+              <h3 style={{
+                fontSize: '1.5rem',
+                fontWeight: '700',
+                color: '#1E293B',
+                marginBottom: '1rem'
+              }}>
+                🕓 Pacote Meio Período
+              </h3>
+              <p style={{
+                color: '#64748B',
+                marginBottom: '1rem',
+                fontSize: '1rem'
+              }}>
+                Tempo: 4 horas
+              </p>
+              <div style={{
+                fontSize: '1.25rem',
+                fontWeight: '700',
+                color: '#A0D4D8',
+                marginBottom: '1rem'
+              }}>
+                Atendimento médio
+              </div>
+              <p style={{
+                color: '#64748B',
+                fontSize: '0.875rem',
+                marginBottom: '1rem'
+              }}>
+                12 a 16 pessoas
+              </p>
+              <div style={{
+                fontSize: '2rem',
+                fontWeight: '700',
+                color: '#1E293B'
+              }}>
+                R$ 490,00
+              </div>
+            </div>
+
+            {/* Evento Integral */}
+            <div style={{
+              backgroundColor: '#F8FAFC',
+              padding: '2rem',
+              borderRadius: '12px',
+              border: '1px solid rgba(160, 212, 216, 0.2)',
+              textAlign: 'center'
+            }}>
+              <div style={{
+                width: '64px',
+                height: '64px',
+                backgroundColor: '#F1C0D1',
+                borderRadius: '12px',
+                margin: '0 auto 1rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <Calendar size={32} style={{ color: '#E91E63' }} />
+              </div>
+              <h3 style={{
+                fontSize: '1.5rem',
+                fontWeight: '700',
+                color: '#1E293B',
+                marginBottom: '1rem'
+              }}>
+                🏢 Evento Integral
+              </h3>
+              <p style={{
+                color: '#64748B',
+                marginBottom: '1rem',
+                fontSize: '1rem'
+              }}>
+                Tempo: 8 horas
+              </p>
+              <div style={{
+                fontSize: '1.25rem',
+                fontWeight: '700',
+                color: '#A0D4D8',
+                marginBottom: '1rem'
+              }}>
+                Atendimento médio
+              </div>
+              <p style={{
+                color: '#64748B',
+                fontSize: '0.875rem',
+                marginBottom: '1rem'
+              }}>
+                24 a 32 pessoas
+              </p>
+              <div style={{
+                fontSize: '2rem',
+                fontWeight: '700',
+                color: '#1E293B'
+              }}>
+                R$ 950,00
+              </div>
+            </div>
+          </div>
+
+          {/* Observações */}
+          <div style={{
+            backgroundColor: '#F8FAFC',
+            padding: '2rem',
+            borderRadius: '12px',
+            marginTop: '3rem',
+            border: '1px solid rgba(160, 212, 216, 0.2)'
+          }}>
+            <h3 style={{
+              fontSize: '1.5rem',
+              fontWeight: '700',
+              color: '#1E293B',
+              marginBottom: '1.5rem',
+              textAlign: 'center'
+            }}>
+              📌 Observações
+            </h3>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '1.5rem'
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '0.75rem'
+              }}>
+                <CheckCircle size={20} style={{ color: '#A0D4D8', marginTop: '0.25rem', flexShrink: 0 }} />
+                <p style={{ color: '#64748B', fontSize: '1rem', lineHeight: 1.6 }}>
+                  A empresa pode optar por contratar por número de pessoas ou por pacote
+                </p>
+              </div>
+              <div style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '0.75rem'
+              }}>
+                <CheckCircle size={20} style={{ color: '#A0D4D8', marginTop: '0.25rem', flexShrink: 0 }} />
+                <p style={{ color: '#64748B', fontSize: '1rem', lineHeight: 1.6 }}>
+                  É possível adicionar mais profissionais para ampliar o atendimento em grandes eventos
+                </p>
+              </div>
+              <div style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '0.75rem'
+              }}>
+                <CheckCircle size={20} style={{ color: '#A0D4D8', marginTop: '0.25rem', flexShrink: 0 }} />
+                <p style={{ color: '#64748B', fontSize: '1rem', lineHeight: 1.6 }}>
+                  Todo o material necessário é fornecido por mim (cadeira de quick massage, materiais de higiene e aromaterapia, se desejado)
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1080,19 +1455,11 @@ export default function Home() {
               backgroundColor: 'white',
               borderRadius: '1rem',
               boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
-              overflow: 'hidden',
-              transition: 'all 0.3s'
-            }}
-            onMouseEnter={(e) => {
-              (e.target as HTMLElement).style.transform = 'translateY(-8px)';
-              (e.target as HTMLElement).style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.15)';
-            }}
-            onMouseLeave={(e) => {
-              (e.target as HTMLElement).style.transform = 'translateY(0)';
-              (e.target as HTMLElement).style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
+              overflow: 'hidden'
             }}
             >
               <video 
+                id="video1"
                 controls
                 style={{
                   width: '100%',
@@ -1100,7 +1467,7 @@ export default function Home() {
                   objectFit: 'cover'
                 }}
               >
-                <source src="/imagens_videos/VID-20250826-WA0013.mp4" type="video/mp4" />
+                <source src="/imagens_videos/Técnica de Liberação.mp4" type="video/mp4" />
                 Seu navegador não suporta vídeos.
               </video>
               <div style={{ padding: '1.5rem' }}>
@@ -1110,13 +1477,13 @@ export default function Home() {
                   color: '#1f2937',
                   marginBottom: '0.5rem'
                 }}>
-                  Técnica de Liberação
+                  Liberação Miofascial + Ventosaterapia
                 </h3>
                 <p style={{
                   color: '#6b7280',
                   fontSize: '0.875rem'
                 }}>
-                  Demonstração de liberação miofascial
+                  Demonstração de liberação miofascial e ventosaterapia
                 </p>
               </div>
             </div>
@@ -1125,19 +1492,11 @@ export default function Home() {
               backgroundColor: 'white',
               borderRadius: '1rem',
               boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
-              overflow: 'hidden',
-              transition: 'all 0.3s'
-            }}
-            onMouseEnter={(e) => {
-              (e.target as HTMLElement).style.transform = 'translateY(-8px)';
-              (e.target as HTMLElement).style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.15)';
-            }}
-            onMouseLeave={(e) => {
-              (e.target as HTMLElement).style.transform = 'translateY(0)';
-              (e.target as HTMLElement).style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
+              overflow: 'hidden'
             }}
             >
               <video 
+                id="video2"
                 controls
                 style={{
                   width: '100%',
@@ -1145,7 +1504,7 @@ export default function Home() {
                   objectFit: 'cover'
                 }}
               >
-                <source src="/imagens_videos/VID-20250826-WA0012.mp4" type="video/mp4" />
+                <source src="/imagens_videos/Massagem Terapêutica.mp4" type="video/mp4" />
                 Seu navegador não suporta vídeos.
               </video>
               <div style={{ padding: '1.5rem' }}>
@@ -1155,13 +1514,13 @@ export default function Home() {
                   color: '#1f2937',
                   marginBottom: '0.5rem'
                 }}>
-                  Massagem Terapêutica
+                  Massagem Relaxante
                 </h3>
                 <p style={{
                   color: '#6b7280',
                   fontSize: '0.875rem'
                 }}>
-                  Técnicas avançadas de massoterapia
+                  Técnicas de massagem relaxante para alívio da tensão
                 </p>
               </div>
             </div>
@@ -1170,19 +1529,11 @@ export default function Home() {
               backgroundColor: 'white',
               borderRadius: '1rem',
               boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
-              overflow: 'hidden',
-              transition: 'all 0.3s'
-            }}
-            onMouseEnter={(e) => {
-              (e.target as HTMLElement).style.transform = 'translateY(-8px)';
-              (e.target as HTMLElement).style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.15)';
-            }}
-            onMouseLeave={(e) => {
-              (e.target as HTMLElement).style.transform = 'translateY(0)';
-              (e.target as HTMLElement).style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
+              overflow: 'hidden'
             }}
             >
               <video 
+                id="video3"
                 controls
                 style={{
                   width: '100%',
@@ -1190,7 +1541,7 @@ export default function Home() {
                   objectFit: 'cover'
                 }}
               >
-                <source src="/imagens_videos/VID-20250826-WA0010.mp4" type="video/mp4" />
+                <source src="/imagens_videos/Relaxamento Profundo.mp4" type="video/mp4" />
                 Seu navegador não suporta vídeos.
               </video>
               <div style={{ padding: '1.5rem' }}>
@@ -1200,13 +1551,13 @@ export default function Home() {
                   color: '#1f2937',
                   marginBottom: '0.5rem'
                 }}>
-                  Relaxamento Profundo
+                  Bambuterapia
                 </h3>
                 <p style={{
                   color: '#6b7280',
                   fontSize: '0.875rem'
                 }}>
-                  Técnicas de relaxamento e bem-estar
+                  Técnica terapêutica com bambus para relaxamento muscular
                 </p>
               </div>
             </div>
@@ -1216,321 +1567,278 @@ export default function Home() {
 
       {/* Contact Section */}
       <section id="contato" style={{
-        padding: '6rem 1rem',
-        background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)'
+        padding: '5rem 1rem',
+        backgroundColor: 'white'
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <h2 style={{
-              fontSize: '3rem',
-              fontWeight: 'bold',
-              color: '#1f2937',
-              marginBottom: '1.5rem'
+              fontSize: '2.5rem',
+              fontWeight: '700',
+              color: '#1E293B',
+              marginBottom: '1rem'
             }}>
               Entre em Contato
             </h2>
             <p style={{
-              fontSize: '1.25rem',
-              color: '#6b7280',
+              fontSize: '1.125rem',
+              color: '#64748B',
               maxWidth: '600px',
               margin: '0 auto',
               lineHeight: 1.6
             }}>
               Agende sua sessão e comece sua jornada de transformação e bem-estar.
             </p>
-          </div>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr',
-            gap: '4rem'
-          }} className="lg:grid-cols-2">
             
-            {/* Galeria de Imagens */}
+            {/* Mensagem Pessoal e Contatos Integrados */}
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
-              gap: '1rem',
-              marginBottom: '2rem'
+              backgroundColor: 'rgba(160, 212, 216, 0.1)',
+              padding: '3rem',
+              borderRadius: '20px',
+              marginTop: '2rem',
+              border: '1px solid rgba(160, 212, 216, 0.2)',
+              maxWidth: '800px',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              boxShadow: '0 8px 32px rgba(160, 212, 216, 0.15)'
             }}>
-              <div 
-                onClick={() => openModal("/imagens_videos/IMG-20250826-WA0015.jpg")}
-                onMouseEnter={(e) => {
-                  const target = e.target as HTMLElement;
-                  target.style.transform = 'scale(1.1)';
-                  target.style.zIndex = '10';
-                  target.style.transition = 'all 0.3s ease';
-                  target.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  const target = e.target as HTMLElement;
-                  target.style.transform = 'scale(1)';
-                  target.style.zIndex = '1';
-                  target.style.transition = 'all 0.3s ease';
-                  target.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
-                }}
-                style={{
-                  width: '300px',
-                  height: '225px',
-                  maxWidth: '100%',
-                  maxHeight: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: '#f8f9fa',
-                  borderRadius: '0.5rem',
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                  overflow: 'hidden',
-                  margin: '0 auto',
-                  transition: 'all 0.3s ease',
-                  cursor: 'pointer'
-                }}
-              >
-                <img 
-                  src="/imagens_videos/IMG-20250826-WA0015.jpg"
-                  alt="Técnica de Massagem"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    borderRadius: '0.5rem'
-                  }}
-                />
+              {/* Mensagem Motivacional */}
+              <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                <p style={{
+                  fontSize: '1.25rem',
+                  color: '#1E293B',
+                  marginBottom: '2rem',
+                  lineHeight: 1.7,
+                  fontWeight: '500'
+                }}>
+                  Tenho plena convicção de que, ao conhecer todos os benefícios deste tratamento, você também ficará motivado(a) a agendar a sua sessão.
+                </p>
+                
+                <div style={{
+                  backgroundColor: '#A0D4D8',
+                  color: 'white',
+                  padding: '1.5rem 3rem',
+                  borderRadius: '16px',
+                  fontSize: '1.5rem',
+                  fontWeight: '800',
+                  marginBottom: '2rem',
+                  display: 'inline-block',
+                  boxShadow: '0 8px 25px rgba(160, 212, 216, 0.4)'
+                }}>
+                  🗓️ Agenda aberta!
+                </div>
               </div>
-              <div 
-                onClick={() => openModal("/imagens_videos/IMG-20250826-WA0014.jpg")}
-                onMouseEnter={(e) => {
-                  const target = e.target as HTMLElement;
-                  target.style.transform = 'scale(1.1)';
-                  target.style.zIndex = '10';
-                  target.style.transition = 'all 0.3s ease';
-                  target.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  const target = e.target as HTMLElement;
-                  target.style.transform = 'scale(1)';
-                  target.style.zIndex = '1';
-                  target.style.transition = 'all 0.3s ease';
-                  target.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
-                }}
-                style={{
-                  width: '300px',
-                  height: '225px',
-                  maxWidth: '100%',
-                  maxHeight: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: '#f8f9fa',
-                  borderRadius: '0.5rem',
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                  overflow: 'hidden',
-                  margin: '0 auto',
-                  transition: 'all 0.3s ease',
-                  cursor: 'pointer'
-                }}
-              >
-                <img 
-                  src="/imagens_videos/IMG-20250826-WA0014.jpg"
-                  alt="Ambiente de Massagem"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    borderRadius: '0.5rem'
-                  }}
-                />
-              </div>
-              <div 
-                onClick={() => openModal("/imagens_videos/IMG-20250826-WA0016.jpg")}
-                onMouseEnter={(e) => {
-                  const target = e.target as HTMLElement;
-                  target.style.transform = 'scale(1.1)';
-                  target.style.zIndex = '10';
-                  target.style.transition = 'all 0.3s ease';
-                  target.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  const target = e.target as HTMLElement;
-                  target.style.transform = 'scale(1)';
-                  target.style.zIndex = '1';
-                  target.style.transition = 'all 0.3s ease';
-                  target.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
-                }}
-                style={{
-                  width: '300px',
-                  height: '225px',
-                  maxWidth: '100%',
-                  maxHeight: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: '#f8f9fa',
-                  borderRadius: '0.5rem',
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                  overflow: 'hidden',
-                  margin: '0 auto',
-                  transition: 'all 0.3s ease',
-                  cursor: 'pointer'
-                }}
-              >
-                <img 
-                  src="/imagens_videos/IMG-20250826-WA0016.jpg"
-                  alt="Técnica Terapêutica"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    borderRadius: '0.5rem'
-                  }}
-                />
-              </div>
-              <div 
-                onClick={() => openModal("/imagens_videos/IMG-20250826-WA0017.jpg")}
-                onMouseEnter={(e) => {
-                  const target = e.target as HTMLElement;
-                  target.style.transform = 'scale(1.1)';
-                  target.style.zIndex = '10';
-                  target.style.transition = 'all 0.3s ease';
-                  target.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  const target = e.target as HTMLElement;
-                  target.style.transform = 'scale(1)';
-                  target.style.zIndex = '1';
-                  target.style.transition = 'all 0.3s ease';
-                  target.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
-                }}
-                style={{
-                  width: '300px',
-                  height: '225px',
-                  maxWidth: '100%',
-                  maxHeight: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: '#f8f9fa',
-                  borderRadius: '0.5rem',
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                  overflow: 'hidden',
-                  margin: '0 auto',
-                  transition: 'all 0.3s ease',
-                  cursor: 'pointer'
-                }}
-              >
-                <img 
-                  src="/imagens_videos/IMG-20250826-WA0017.jpg"
-                  alt="Massagem Profissional"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    borderRadius: '0.5rem'
-                  }}
-                />
-              </div>
-            </div>
-            <div>
-              <h3 style={{
-                fontSize: '2rem',
-                fontWeight: 'bold',
-                color: '#1f2937',
+
+              {/* Informações de Contato Organizadas */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gap: '1.5rem',
                 marginBottom: '2rem'
               }}>
-                Informações de Contato
-              </h3>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                {/* WhatsApp */}
+                <div style={{
+                  backgroundColor: 'rgba(37, 211, 102, 0.1)',
+                  padding: '1rem',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(37, 211, 102, 0.2)',
+                  textAlign: 'center'
+                }}>
                   <div style={{
-                    width: '64px',
-                    height: '64px',
-                    backgroundColor: '#dbeafe',
-                    borderRadius: '0.5rem',
+                    width: '44px',
+                    height: '44px',
+                    backgroundColor: '#25D366',
+                    borderRadius: '50%',
+                    margin: '0 auto 0.75rem',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    boxShadow: '0 4px 12px rgba(59, 130, 246, 0.2)'
+                    boxShadow: '0 4px 12px rgba(37, 211, 102, 0.3)'
                   }}>
-                    <Phone size={28} style={{ color: '#3b82f6' }} />
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488" fill="white"/>
+                    </svg>
                   </div>
-                                      <div>
-                      <p style={{ fontWeight: '600', color: '#1f2937', fontSize: '1.125rem' }}>Telefone</p>
-                      <p style={{ color: '#6b7280', fontSize: '1.125rem' }}>(31) 98510-6741</p>
-                    </div>
+                  <h4 style={{
+                    fontSize: '1rem',
+                    fontWeight: '700',
+                    color: '#1E293B',
+                    marginBottom: '0.5rem'
+                  }}>
+                    WhatsApp
+                  </h4>
+                  <a 
+                    href="https://wa.me/5531985106741?text=Olá! Estou interessado(a) em agendar uma sessão de massoterapia. Pode me ajudar?"
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ 
+                      color: '#25D366', 
+                      fontSize: '0.95rem',
+                      textDecoration: 'none',
+                      fontWeight: '600',
+                      transition: 'all 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.target as HTMLElement).style.color = '#128C7E';
+                      (e.target as HTMLElement).style.transform = 'scale(1.05)';
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.target as HTMLElement).style.color = '#25D366';
+                      (e.target as HTMLElement).style.transform = 'scale(1)';
+                    }}
+                  >
+                    (31) 98510-6741
+                  </a>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                {/* Instagram */}
+                <div style={{
+                  backgroundColor: 'rgba(228, 64, 95, 0.1)',
+                  padding: '1rem',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(228, 64, 95, 0.2)',
+                  textAlign: 'center'
+                }}>
                   <div style={{
-                    width: '64px',
-                    height: '64px',
-                    backgroundColor: '#dbeafe',
-                    borderRadius: '0.5rem',
+                    width: '44px',
+                    height: '44px',
+                    backgroundColor: '#E4405F',
+                    borderRadius: '50%',
+                    margin: '0 auto 0.75rem',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    boxShadow: '0 4px 12px rgba(59, 130, 246, 0.2)'
+                    boxShadow: '0 4px 12px rgba(228, 64, 95, 0.3)'
                   }}>
-                    <Mail size={28} style={{ color: '#3b82f6' }} />
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="white"/>
+                    </svg>
                   </div>
-                  <div>
-                    <p style={{ fontWeight: '600', color: '#1f2937', fontSize: '1.125rem' }}>Email</p>
-                    <p style={{ color: '#6b7280', fontSize: '1.125rem' }}>contato@massagempro.com</p>
-                  </div>
+                  <h4 style={{
+                    fontSize: '1rem',
+                    fontWeight: '700',
+                    color: '#1E293B',
+                    marginBottom: '0.5rem'
+                  }}>
+                    Instagram
+                  </h4>
+                  <a 
+                    href="https://www.instagram.com/joaomarques_masso/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ 
+                      color: '#E4405F', 
+                      fontSize: '0.95rem',
+                      textDecoration: 'none',
+                      fontWeight: '600',
+                      transition: 'all 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.target as HTMLElement).style.color = '#C13584';
+                      (e.target as HTMLElement).style.transform = 'scale(1.05)';
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.target as HTMLElement).style.color = '#E4405F';
+                      (e.target as HTMLElement).style.transform = 'scale(1)';
+                    }}
+                  >
+                    @joaomarques_masso
+                  </a>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-                  <div style={{
-                    width: '64px',
-                    height: '64px',
-                    backgroundColor: '#dbeafe',
-                    borderRadius: '0.5rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    boxShadow: '0 4px 12px rgba(59, 130, 246, 0.2)'
-                  }}>
-                    <MapPin size={28} style={{ color: '#3b82f6' }} />
-                  </div>
-                  <div>
-                    <p style={{ fontWeight: '600', color: '#1f2937', fontSize: '1.125rem' }}>Endereço</p>
-                    <p style={{ color: '#6b7280', fontSize: '1.125rem' }}>Rua das Flores, 123 - Centro</p>
-                  </div>
-                </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+
+                {/* Horário */}
+                <div style={{
+                  backgroundColor: 'rgba(160, 212, 216, 0.1)',
+                  padding: '1rem',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(160, 212, 216, 0.2)',
+                  textAlign: 'center'
+                }}>
                   <div style={{
-                    width: '64px',
-                    height: '64px',
-                    backgroundColor: '#dbeafe',
-                    borderRadius: '0.5rem',
+                    width: '44px',
+                    height: '44px',
+                    backgroundColor: '#A0D4D8',
+                    borderRadius: '50%',
+                    margin: '0 auto 0.75rem',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    boxShadow: '0 4px 12px rgba(59, 130, 246, 0.2)'
+                    boxShadow: '0 4px 12px rgba(160, 212, 216, 0.3)'
                   }}>
-                    <Clock size={28} style={{ color: '#3b82f6' }} />
+                    <Clock size={22} style={{ color: 'white' }} />
                   </div>
-                  <div>
-                    <p style={{ fontWeight: '600', color: '#1f2937', fontSize: '1.125rem' }}>Horário de Atendimento</p>
-                    <p style={{ color: '#6b7280', fontSize: '1.125rem' }}>Segunda a Sexta: 8h às 18h</p>
-                    <p style={{ color: '#6b7280', fontSize: '1.125rem' }}>Sábado: 8h às 12h</p>
-                  </div>
+                  <h4 style={{
+                    fontSize: '1rem',
+                    fontWeight: '700',
+                    color: '#1E293B',
+                    marginBottom: '0.5rem'
+                  }}>
+                    Horário de Atendimento
+                  </h4>
+                  <p style={{
+                    color: '#64748B',
+                    fontSize: '0.9rem',
+                    fontWeight: '500',
+                    marginBottom: '0.25rem'
+                  }}>
+                    Segunda a Sexta: 8h às 18h
+                  </p>
+                  <p style={{
+                    color: '#64748B',
+                    fontSize: '0.9rem',
+                    fontWeight: '500'
+                  }}>
+                    Sábado: 8h às 12h
+                  </p>
                 </div>
               </div>
-            </div>
 
-            <div style={{
+              {/* Mensagem Final */}
+              <div style={{ textAlign: 'center' }}>
+                <p style={{
+                  fontSize: '1.25rem',
+                  color: '#1E293B',
+                  lineHeight: '1.6',
+                  fontWeight: '700',
+                  marginBottom: '1rem'
+                }}>
+                  Agende seu horário pelo site, WhatsApp ou direct no Instagram. Entrarei em contato para confirmar!
+                </p>
+                
+                <p style={{
+                  fontSize: '1.125rem',
+                  color: '#0F766E',
+                  lineHeight: '1.6',
+                  fontWeight: '600'
+                }}>
+                  Estou te esperando! 💫
+                </p>
+              </div>
+            </div>
+          </div>
+
+                    <div style={{
+            display: 'flex',
+            justifyContent: 'center'
+          }}>
+            
+
+
+            <div id="agende-sessao" style={{
               backgroundColor: 'white',
-              padding: '2.5rem',
-              borderRadius: '1rem',
-              boxShadow: '0 25px 50px rgba(0, 0, 0, 0.1)',
-              border: '1px solid #e5e7eb'
+              padding: '3rem',
+              borderRadius: '12px',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+              border: '1px solid rgba(160, 212, 216, 0.1)',
+              width: '100%',
+              maxWidth: '600px'
             }}>
               <h3 style={{
                 fontSize: '2rem',
-                fontWeight: 'bold',
-                color: '#1f2937',
+                fontWeight: '700',
+                color: '#1E293B',
                 marginBottom: '2rem'
               }}>
                 Agende sua Sessão
@@ -1611,7 +1919,15 @@ export default function Home() {
                     border: '1px solid #d1d5db',
                     borderRadius: '0.5rem',
                     fontSize: '1.125rem',
-                    transition: 'all 0.2s'
+                    transition: 'all 0.2s',
+                    backgroundColor: 'white',
+                    cursor: 'pointer',
+                    appearance: 'none',
+                    backgroundImage: 'url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6,9 12,15 18,9\'%3e%3c/polyline%3e%3c/svg%3e")',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 1rem center',
+                    backgroundSize: '1rem',
+                    paddingRight: '3rem'
                   }}
                   onFocus={(e) => {
                     e.target.style.borderColor = '#3b82f6';
@@ -1622,10 +1938,13 @@ export default function Home() {
                     e.target.style.boxShadow = 'none';
                   }}
                   >
-                    <option>Selecione um serviço</option>
-                    <option>Liberação Miofascial</option>
-                    <option>Massoterapia</option>
-                    <option>Massagem Relaxante</option>
+                    <option value="" disabled selected>Selecione um serviço</option>
+                    <option value="liberacao-miofascial">💆‍♀ Liberação Miofascial + Ventosaterapia</option>
+                    <option value="massagem-relaxante">💆‍♀ Massagem Relaxante</option>
+                    <option value="bambuterapia">🪴 Bambuterapia</option>
+                    <option value="massagem-desportiva">⚽ Massagem Desportiva</option>
+                    <option value="massagem-pedras">🔥 Massagem Relaxante com Pedras</option>
+                    <option value="agulhamento">🕉️ Massagem + Agulhamento a Seco</option>
                   </select>
                 </div>
 
@@ -1662,33 +1981,33 @@ export default function Home() {
                   type="submit"
                   style={{
                     width: '100%',
-                    backgroundColor: '#3b82f6',
+                    backgroundColor: '#A0D4D8',
                     color: 'white',
                     padding: '1.25rem',
-                    borderRadius: '0.5rem',
+                    borderRadius: '8px',
                     fontWeight: '600',
                     border: 'none',
                     cursor: 'pointer',
-                    fontSize: '1.125rem',
+                    fontSize: '1rem',
                     transition: 'all 0.3s',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '0.75rem',
-                    boxShadow: '0 10px 25px rgba(59, 130, 246, 0.3)'
+                    boxShadow: '0 4px 15px rgba(160, 212, 216, 0.3)'
                   }}
                   onMouseEnter={(e) => {
-                    (e.target as HTMLElement).style.backgroundColor = '#2563eb';
+                    (e.target as HTMLElement).style.backgroundColor = '#8BC5C9';
                     (e.target as HTMLElement).style.transform = 'translateY(-2px)';
-                    (e.target as HTMLElement).style.boxShadow = '0 15px 35px rgba(59, 130, 246, 0.4)';
+                    (e.target as HTMLElement).style.boxShadow = '0 8px 25px rgba(160, 212, 216, 0.4)';
                   }}
                   onMouseLeave={(e) => {
-                    (e.target as HTMLElement).style.backgroundColor = '#3b82f6';
+                    (e.target as HTMLElement).style.backgroundColor = '#A0D4D8';
                     (e.target as HTMLElement).style.transform = 'translateY(0)';
-                    (e.target as HTMLElement).style.boxShadow = '0 10px 25px rgba(59, 130, 246, 0.3)';
+                    (e.target as HTMLElement).style.boxShadow = '0 4px 15px rgba(160, 212, 216, 0.3)';
                   }}
                 >
-                  <Calendar size={24} />
+                  <Calendar size={20} />
                   Agendar Sessão
                 </button>
               </form>
@@ -1699,26 +2018,27 @@ export default function Home() {
 
       {/* Footer */}
       <footer style={{
-        backgroundColor: '#1f2937',
+        backgroundColor: '#1E293B',
         color: 'white',
-        padding: '4rem 1rem'
+        padding: '3rem 1rem'
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-            gap: '3rem'
+            gap: '2.5rem'
           }}>
             <div>
               <h3 style={{
-                fontSize: '2rem',
-                fontWeight: 'bold',
-                marginBottom: '1.5rem'
-              }}>MassagemPro</h3>
+                fontSize: '1.75rem',
+                fontWeight: '700',
+                marginBottom: '1rem',
+                color: '#A0D4D8'
+              }}>João Marques</h3>
               <p style={{
-                color: '#d1d5db',
+                color: '#CBD5E1',
                 lineHeight: 1.6,
-                fontSize: '1.125rem'
+                fontSize: '1rem'
               }}>
                 Especialistas em massoterapia e liberação miofascial, 
                 dedicados ao seu bem-estar e qualidade de vida.
@@ -1727,52 +2047,67 @@ export default function Home() {
             
             <div>
               <h4 style={{
-                fontSize: '1.25rem',
+                fontSize: '1.125rem',
                 fontWeight: '600',
-                marginBottom: '1.5rem'
+                marginBottom: '1rem',
+                color: '#A0D4D8'
               }}>Serviços</h4>
               <ul style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '0.75rem',
-                color: '#d1d5db',
-                fontSize: '1.125rem'
+                gap: '0.5rem',
+                color: '#CBD5E1',
+                fontSize: '1rem'
               }}>
                 <li>Liberação Miofascial</li>
                 <li>Massoterapia</li>
                 <li>Massagem Relaxante</li>
-                <li>Consultoria em Bem-estar</li>
+                <li>Massagem com Pedras Quentes</li>
               </ul>
             </div>
             
             <div>
               <h4 style={{
-                fontSize: '1.25rem',
+                fontSize: '1.125rem',
                 fontWeight: '600',
-                marginBottom: '1.5rem'
+                marginBottom: '1rem',
+                color: '#A0D4D8'
               }}>Contato</h4>
               <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '0.75rem',
-                color: '#d1d5db',
-                fontSize: '1.125rem'
+                gap: '0.5rem',
+                color: '#CBD5E1',
+                fontSize: '1rem'
               }}>
                 <p>(31) 98510-6741</p>
-                <p>contato@massagempro.com</p>
+                <a 
+                  href="https://www.instagram.com/joaomarques_masso/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{ 
+                    color: '#CBD5E1', 
+                    textDecoration: 'none',
+                    transition: 'color 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#A0D4D8'}
+                  onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#CBD5E1'}
+                >
+                  @joaomarques_masso
+                </a>
                 <p>Rua das Flores, 123 - Centro</p>
               </div>
             </div>
           </div>
           
           <div style={{
-            borderTop: '1px solid #374151',
-            marginTop: '3rem',
-            paddingTop: '2rem',
+            borderTop: '1px solid #334155',
+            marginTop: '2rem',
+            paddingTop: '1.5rem',
             textAlign: 'center',
-            color: '#9ca3af'
+            color: '#94A3B8'
           }}>
-            <p>&copy; 2024 MassagemPro. Todos os direitos reservados.</p>
+            <p>&copy; 2024 João Marques Massoterapia. Todos os direitos reservados.</p>
           </div>
         </div>
       </footer>
@@ -1966,17 +2301,38 @@ export default function Home() {
             >
               <X size={24} />
             </button>
-            <img 
-              src={modalImage}
-              alt="Imagem em tamanho original"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'contain',
-                borderRadius: '0.5rem',
-                boxShadow: '0 25px 50px rgba(0, 0, 0, 0.5)'
-              }}
-            />
+            {modalImage && (
+              modalImage.endsWith('.mp4') ? (
+                <video 
+                  controls
+                  style={{
+                    width: 'auto',
+                    height: 'auto',
+                    maxWidth: '95vw',
+                    maxHeight: '95vh',
+                    borderRadius: '0.5rem',
+                    boxShadow: '0 25px 50px rgba(0, 0, 0, 0.5)'
+                  }}
+                >
+                  <source src={modalImage} type="video/mp4" />
+                  Seu navegador não suporta vídeos.
+                </video>
+              ) : (
+                <img 
+                  src={modalImage}
+                  alt="Visualização ampliada"
+                  style={{
+                    width: 'auto',
+                    height: 'auto',
+                    maxWidth: '95vw',
+                    maxHeight: '95vh',
+                    objectFit: 'contain',
+                    borderRadius: '0.5rem',
+                    boxShadow: '0 25px 50px rgba(0, 0, 0, 0.5)'
+                  }}
+                />
+              )
+            )}
           </div>
         </div>
       )}
